@@ -1,0 +1,174 @@
+basePath: /api/v1
+definitions:
+  datamodels.Movie:
+    properties:
+      genre:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      poster:
+        type: string
+      year:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: demo 演示.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Iris 和 Swagger 演示
+  version: "1.0"
+paths:
+  /movies:
+    get:
+      consumes:
+      - application/json
+      description: 获取movies列表
+      operationId: getMovies
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Token:
+              description: qwerty
+              type: string
+          schema:
+            items:
+              $ref: '#/definitions/datamodels.Movie'
+            type: array
+      summary: 获取movies列表
+      tags:
+      - 演示增删改查API
+    post:
+      consumes:
+      - application/json
+      description: 添加一个Movie
+      operationId: addMovie
+      parameters:
+      - description: Name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: Year
+        in: formData
+        name: year
+        required: true
+        type: integer
+      - description: Genre
+        in: formData
+        name: genre
+        required: true
+        type: string
+      - description: Poster
+        in: formData
+        name: poster
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Token:
+              description: qwerty
+              type: string
+          schema:
+            type: Object
+      summary: 添加一个Movie
+      tags:
+      - 演示增删改查API
+  /movies/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除指定ID的movies
+      operationId: deleteMovieById
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Token:
+              description: qwerty
+              type: string
+          schema:
+            type: integer
+      summary: 删除指定ID的movies
+      tags:
+      - 演示增删改查API
+    get:
+      consumes:
+      - application/json
+      description: 查询指定Id的movie
+      operationId: getMovieById
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Token:
+              description: qwerty
+              type: string
+          schema:
+            $ref: '#/definitions/datamodels.Movie'
+      summary: 查询指定Id的movie
+      tags:
+      - 演示增删改查API
+    put:
+      consumes:
+      - multipart/form-data
+      description: 修改指定ID的movie
+      operationId: modifyMovieById
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Genre
+        in: formData
+        name: genre
+        required: true
+        type: string
+      - description: Poster
+        in: formData
+        name: poster
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Token:
+              description: qwerty
+              type: string
+          schema:
+            $ref: '#/definitions/datamodels.Movie'
+      summary: 修改指定ID的movie
+      tags:
+      - 演示增删改查API
+swagger: "2.0"
