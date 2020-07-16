@@ -63,7 +63,7 @@ var doc = `{
             "post": {
                 "description": "添加一个Movie",
                 "consumes": [
-                    "application/json"
+                    "multipart/form-data"
                 ],
                 "produces": [
                     "application/json"
@@ -107,7 +107,46 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "Object"
+                            "$ref": "#/definitions/datamodels.Movie"
+                        },
+                        "headers": {
+                            "Token": {
+                                "type": "string",
+                                "description": "qwerty"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/movies/user/{name}": {
+            "get": {
+                "description": "GetUserBy",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "GetUserBy"
+                ],
+                "summary": "GetUserBy",
+                "operationId": "getUserByName",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
                         },
                         "headers": {
                             "Token": {

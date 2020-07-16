@@ -47,7 +47,7 @@ paths:
       - 演示增删改查API
     post:
       consumes:
-      - application/json
+      - multipart/form-data
       description: 添加一个Movie
       operationId: addMovie
       parameters:
@@ -81,7 +81,7 @@ paths:
               description: qwerty
               type: string
           schema:
-            type: Object
+            $ref: '#/definitions/datamodels.Movie'
       summary: 添加一个Movie
       tags:
       - 演示增删改查API
@@ -171,4 +171,30 @@ paths:
       summary: 修改指定ID的movie
       tags:
       - 演示增删改查API
+  /movies/user/{name}:
+    get:
+      consumes:
+      - application/json
+      description: GetUserBy
+      operationId: getUserByName
+      parameters:
+      - description: Name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Token:
+              description: qwerty
+              type: string
+          schema:
+            type: string
+      summary: GetUserBy
+      tags:
+      - GetUserBy
 swagger: "2.0"

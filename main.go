@@ -1,9 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"github.com/iris-contrib/swagger/v12"
 	"github.com/iris-contrib/swagger/v12/swaggerFiles"
-
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/mvc"
 	"swagDemo/datasource"
@@ -13,6 +13,23 @@ import (
 
 	_ "swagDemo/docs"
 )
+
+func init() {
+	fmt.Println("init========== ")
+	//exec.Command("swag", "init")
+	//gen.New().Build(&gen.Config{
+	//	SearchDir:          "./",
+	//	Excludes:           "",
+	//	MainAPIFile:        "main.go",
+	//	PropNamingStrategy: "camelcase",
+	//	OutputDir:          "./docs",
+	//	ParseVendor:        false,
+	//	ParseDependency:    false,
+	//	MarkdownFilesDir:   "",
+	//	ParseInternal:      false,
+	//	GeneratedTime:      true,
+	//})
+}
 
 // @title Iris 和 Swagger 演示
 // @version 1.0
@@ -24,7 +41,11 @@ import (
 // @host localhost:8080
 // @BasePath /api/v1
 func main() {
+	fmt.Println("start========== ")
+
 	app := iris.New()
+
+	app.Logger().SetLevel("debug")
 
 	url := swagger.URL("http://localhost:8080/swagger/doc.json") //The url pointing to API definition
 	app.Get("/swagger/{any:path}", swagger.WrapHandler(swaggerFiles.Handler, url))

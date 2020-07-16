@@ -4,13 +4,13 @@ package controllers
 
 import (
 	"errors"
-	"fmt"
 	"strconv"
 
 	"swagDemo/datamodels"
 	"swagDemo/services"
 
 	"github.com/kataras/iris/v12"
+	"github.com/kataras/iris/v12/mvc"
 )
 
 // MovieController is our /movies controller.
@@ -100,7 +100,7 @@ func (c *MovieController) DeleteBy(id int64) interface{} {
 // @Description 添加一个Movie
 // @ID addMovie
 // @tags 演示增删改查API
-// @Accept  json
+// @Accept  mpfd
 // @Produce  json
 // @Param   name     formData    string     true   "Name"
 // @Param   year     formData    int     	true   "Year"
@@ -124,7 +124,32 @@ func (c *MovieController) Post(ctx iris.Context) (datamodels.Movie, error) {
 	movie.Genre = ctx.FormValue("genre")
 	movie.Poster = ctx.FormValue("poster")
 
-	fmt.Println("add a movie", ctx.FormValue("name"), ctx.PostValue("name"))
-
 	return c.Service.Add(movie)
+}
+
+// 注册自定义的路由
+func (c *MovieController) BeforeActivation(b mvc.BeforeActivation) {
+	// b.Dependencies().Add/Remove
+	// b.Router().Use/UseGlobal/Done // 和你已知的任何标准 API  调用
+
+	// 自定义路由注册
+	// 1-> 方法
+	// 2-> 路径
+	// 3-> 控制器函数的名称将被解析未一个处理程序 [ handler ]
+	// 4-> 任何应该在 MyCustomHandler 之前运行的处理程序[ handlers ]
+	//b.Handle("Get", "/queyByPage", "GetMovieListByPage")
+}
+
+// @Summary GetUserBy
+// @Description GetUserBy
+// @ID getUserByName
+// @tags GetUserBy
+// @Accept  json
+// @Produce  json
+// @Param   name     path    string     true   "Name"
+// @Success 200 {string} string
+// @Header 200 {string} Token "qwerty"
+// @Router /movies/user/{name} [get]
+func (c *MovieController) GetUserBy(name string) string {
+	return name
 }
